@@ -1,108 +1,79 @@
-// let contenido = [
-//     {nombre : "hbo",  contenido : "Game Of Trones"},
-//     {nombre : "hbo",  contenido : "Friends"},
-//     {nombre : "blim",  contenido : "Peliculas Mexicanas"},
-//     {nombre : "blim",  contenido : "Telenovelas"},
-//     {nombre : "disney",  contenido : "Marvel"},
-//     {nombre : "disney",  contenido : "Star Wars"},
-//     {nombre : "amazonPrime",  contenido : "Jack Ryan"},
-//     {nombre : "amazonPrime",  contenido : "James Bond"},
-//     {nombre : "apple",  contenido : "Apple Origins"},
-//     {nombre : "netflix",  contenido : "Original Netflix"},
-//     {nombre : "paramount",  contenido : "Mission Imposible"}
-// ];
-
-// let precioSuscripcion = [
-//     {nombre :"netflix", costo : 139},
-//     {nombre :"amazonPrime" , costo : 99},
-//     {nombre: "disney" , costo : 159},
-//     {nombre : "hbo" , costo : 149},
-//     {nombre : "apple" , costo : 69},
-//     {nombre : "blim" , costo : 109},
-//     {nombre : "paramount" , costo : 79}
-//];
-
 let precioRenta = {
     pelicula : 40,
     renta : 300,
 };
 
-let buscarContenido = [
-    {nombre : "hbo",  contenido : ["Game Of Trones","Friends"], costo : 149},
-    {nombre : "blim",  contenido : ["Peliculas Mexicanas", "Telenovelas"], costo : 109},
-    {nombre : "disney",  contenido : ["Marvel","Star Wars"], costo : 159},
-    {nombre : "amazonPrime",  contenido : ["Jack Ryan","James Bond"], costo : 99},
-    {nombre : "apple",  contenido : ["Apple Origins"], costo : 69},
-    {nombre : "netflix",  contenido : ["Original Netflix"], costo : 139},
-    {nombre : "paramount",  contenido : ["Mission Imposible"], costo : 79}
+let baseDatosPrincipal = [
+    {nombre : "Hbo Max",  contenido : ["Game Of Trones","Friends"], costo : 149},
+    {nombre : "Blim",  contenido : ["Peliculas Mexicanas", "Telenovelas"], costo : 109},
+    {nombre : "Disney",  contenido : ["Marvel","Star Wars"], costo : 159},
+    {nombre : "Amazon Prime",  contenido : ["Jack Ryan","James Bond"], costo : 99},
+    {nombre : "Apple +",  contenido : ["Apple Origins"], costo : 69},
+    {nombre : "Netflix",  contenido : ["Original Netflix"], costo : 139},
+    {nombre : "Paramount",  contenido : ["Mission Imposible"], costo : 79}
 ];
 
+//funcion para mostrar todo el contenido en HTML
+function changeText()
+{
+    for(let i = 0 ; i < baseDatosPrincipal.length ; i++)
+    {
+        let mostrarContenidoHTML = baseDatosPrincipal[i].contenido;
+        let inner = document.getElementById("catalogoEnBD").innerHTML;
+        let newBox = ('<input type="checkbox" name="item[]" value="' + mostrarContenidoHTML[i] + '>');
+        document.getElementById("catalogoEnBD").innerHTML = inner + newBox;
+    }
+document.getElementById("formCatalogoEnBD").submit();
+}
+
 //let seleccionUsuario = document.querySelectorAll("#seleccion");
+let seleccionUsuarioCompleta =  [];
 
-let seleccionUsuario = prompt("Ingresa una tipo de contenido: ");
-
-const traerCatalogo = function (plataforma) {
-    return plataforma.contenido
+function crearObjetoCostosPlataforma (plataforma, costo, contenido) {
+    this.contenido =contenido;
+    this.plataforma = plataforma;
+    this.costo = costo;
 }
 
-const seleccionCatalogo = buscarContenido.map(traerCatalogo);
-
-// const encontrarPlataforma = function 
-
-// for (i = 0; i < buscarContenido.length; i++){
-//     let plataformaCompleta = buscarContenido[i];
-//     trarCatalogo(plataformaCompleta.contenido);
-//     console.log(plataformaCompleta)
-// }
-
-// function buscaPelicula (contenido) {
-//     let plataformaEncontrada;
-//     if (contenido === seleccionUsuario) {        
-//     }
-// }
-//catalogo[1]
-//la posicion del array corresponde a cada una de las plataformas
-
-const extraerContenido = filtro.map(encontrarSeleccion);
-
-function encontrarSeleccion () {
-
-}
-//ejemplo probado en motor V8 del navegador
-const traerCatalogo = function (plataforma) {
-    return plataforma.contenido
+const encontrarSeleccion = function( arrayPlataforma, usuario) {
+    //array para guardar los booleans de cada iteraccion y encontrar la posicion de plataforma buscada
+    let arrayDeComprobacion = [];
+    for (let i = 0; i < arrayPlataforma.length; i++) {        
+        let arrayTemporal = arrayPlataforma[i].some(function(contenido){
+            return usuario === contenido;
+        })            
+        arrayDeComprobacion.push(arrayTemporal);
+    }
+    //del array de booleans, traer posicion con valor true.
+    return arrayDeComprobacion.indexOf(true)
 }
 
-const ubicarPlataforma = buscarContenido.map(traerCatalogo);
-//apartir de aqui hay que generar un filter con un metodo .some que devuelva TRUE
+const traerCatalogo =  (plataforma) => plataforma.contenido;
+const informacionPlataforma = (bd, index) => bd[index].nombre;
+const plataformaCosto = (bd, index) => bd[index].costo;
 
+//Manipulacion HTML
+//conexion con HTML
+//changeText();
 
-const ubicarPlataformaExacta = ubicarPlataforma.filter(comprobacionCatalogo);
+//ejecucion:
+let totalcontenido = 4;
+for (i = 0; i  < totalcontenido; i++)    {
+    let seleccionUsuarioIndividual = prompt("Ingresa una tipo de contenido: ");
 
-const comprobacionCatalogo = function (arrayAComprobar){
-    let comprobacionIndividual = (arrayAComprobar) => seleccionUsuario === arrayAComprobar;        
+    let buscarEnCatalogo = baseDatosPrincipal.map(traerCatalogo);
+
+    let posicionIndexEncontrada = encontrarSeleccion(buscarEnCatalogo, seleccionUsuarioIndividual);
+    
+    let plataformaSeleccionada = informacionPlataforma(baseDatosPrincipal, posicionIndexEncontrada);
+    let plataformaSeleccionadaCosto = plataformaCosto(baseDatosPrincipal, posicionIndexEncontrada);
+
+    let objSeleccionUsuario = new crearObjetoCostosPlataforma(plataformaSeleccionada, plataformaSeleccionadaCosto, seleccionUsuarioIndividual)
+    seleccionUsuarioCompleta.push(objSeleccionUsuario);
+    
+
+    console.log("En suscripcion pagarias mensualmente: $" + seleccionUsuarioCompleta[0].costo + 
+" como parte de la plataforma " + seleccionUsuarioCompleta[0].plataforma.toUpperCase() )
 }
-
-//aqui trajo catalago por cada posicion.PRIMERO HBO [0]
-const catalogoHBO = ubicarPlataforma[0]
-undefined
-
-catalogoHBO
-(2) ['Game Of Trones', 'Friends']
-let catalogoEncontrado;
-undefined
-catalogoHBO.some(function(contenido){
-    return seleccionUsuario === contenido;    
-})
-//Como la seleción del usuario fue "Friends" entonces devulve TRUE
-//por que esta dentro del array
-true
-
-//SEGUNDO BLIM [1]
-const catalogoBLIM = ubicarPlataforma[1]
-undefined
-
-catalogoBLIM.some(function(contenido){
-    return seleccionUsuario === contenido;    
-})
-false
+console.log(seleccionUsuarioCompleta)
+//comparar. en la 
