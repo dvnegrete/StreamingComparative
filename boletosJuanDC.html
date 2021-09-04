@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la página</title>
+</head>
+<body>
+    <h1>Boletos de Cine vs. suscropciones de online</h1>
+
+    <form action="" id="form">
+        
+        <label for="quantity">¿Cuantas peliculas o series ves al mes?</label>
+        <input type="number" id="quantity" value="1">
+
+        <h2>¿Donde se pueden ver esas peliculas o series?</h2>
+        <label for="">Netflix</label>
+        <input id="netflix-checkbox" type="checkbox">
+        
+        <label for="">Amazon Prime</label>
+        <input id="amazon-checkbox" type="checkbox">
+
+        <label for="">Disney Plus</label>
+        <input id="disney-checkbox" type="checkbox">
+    </form>
+</body>
+<script>
+    const form = document.getElementById("form");
+    const inputQuantity = document.getElementById("quantity");
+    const netflixCheckbox = document.getElementById("netflix-checkbox");
+    const amazonCheckbox = document.getElementById("amazon-checkbox");
+    const disneyCheckbox = document.getElementById("disney-checkbox");
+   
+    
+    form.addEventListener("change", function(){
+        let ticketsAmount = 0;
+        let ticketsPrice = 2.15;
+        let suscriptionsPrice = 0;
+
+        ticketsAmount = inputQuantity.value;
+
+        if(netflixCheckbox.checked){
+            suscriptionsPrice += 4.26;
+        }
+
+        if(amazonCheckbox.checked){
+            suscriptionsPrice += 2.20;
+        }
+
+        if(disneyCheckbox.checked){
+            suscriptionsPrice += 7.99;
+        }
+
+        const ticketFinaPrice = ticketsPrice * ticketsAmount;
+
+
+        console.log("Ir al cine te costaria "+ ticketFinaPrice);
+        console.log("Ver estos programas online te costaria "+ suscriptionsPrice);
+    })
+
+    netflixCheckbox.addEventListener("change", function(){
+        console.log( netflixCheckbox.value);
+    })
+
+</script>
+</html>
+

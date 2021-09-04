@@ -1,79 +1,46 @@
-let precioRenta = {
-    pelicula : 40,
-    renta : 300,
-};
+import{baseDatosPrincipal} from "./js/datebase.js";
+import {catalogoChecklist, availablePlataform} from "./js/mostrarcatalogo.js";
+import {selectionInputs} from "./js/userSelection.js";
+import {findselection} from "./js/comparative.js";
 
-let baseDatosPrincipal = [
-    {nombre : "Hbo Max",  contenido : ["Game Of Trones","Friends"], costo : 149},
-    {nombre : "Blim",  contenido : ["Peliculas Mexicanas", "Telenovelas"], costo : 109},
-    {nombre : "Disney",  contenido : ["Marvel","Star Wars"], costo : 159},
-    {nombre : "Amazon Prime",  contenido : ["Jack Ryan","James Bond"], costo : 99},
-    {nombre : "Apple +",  contenido : ["Apple Origins"], costo : 69},
-    {nombre : "Netflix",  contenido : ["Original Netflix"], costo : 139},
-    {nombre : "Paramount",  contenido : ["Mission Imposible"], costo : 79}
-];
+const buttonShow = document.getElementById("mostrarCatalogo");
+const form = document.getElementById("imprimirCatalogo");
+const  buttonComparative = document.getElementById("ejecutarComparativo");
+buttonComparative.style = "display: none";
+let seleccionUsuario = [];
 
-//funcion para mostrar todo el contenido en HTML
-function changeText()
-{
-    for(let i = 0 ; i < baseDatosPrincipal.length ; i++)
-    {
-        let mostrarContenidoHTML = baseDatosPrincipal[i].contenido;
-        let inner = document.getElementById("catalogoEnBD").innerHTML;
-        let newBox = ('<input type="checkbox" name="item[]" value="' + mostrarContenidoHTML[i] + '>');
-        document.getElementById("catalogoEnBD").innerHTML = inner + newBox;
-    }
-document.getElementById("formCatalogoEnBD").submit();
+const traerContenido =  (plataforma) => plataforma.contenido;
+const buscarEnCatalogo = () => baseDatosPrincipal.map(traerContenido);
+const todasplataformas = (bd) => bd.nombre;
+const plataformasDisponibles = baseDatosPrincipal.map(todasplataformas);
+
+//para mostrar en HTML
+const completarCatalogo = (element) => catalogoCompleto.push(element);
+const generarCatalogoCompleto = function () { 
+    const aplanarArray = buscarEnCatalogo();    
+    return aplanarArray.reduce(()=> aplanarArray.flat()        
+    );
+}
+const catalogoCompleto = generarCatalogoCompleto();
+
+
+function accionButton () {
+    catalogoChecklist(catalogoCompleto);
+    availablePlataform(plataformasDisponibles);
+    buttonShow.style = "display: none";
+    buttonComparative.style = "display: auto";
+}
+buttonShow.addEventListener("click", accionButton);
+
+function selectionListen (){
+    seleccionUsuario = selectionInputs(catalogoCompleto);
 }
 
-//let seleccionUsuario = document.querySelectorAll("#seleccion");
-let seleccionUsuarioCompleta =  [];
+form.addEventListener("click", selectionListen);
 
-function crearObjetoCostosPlataforma (plataforma, costo, contenido) {
-    this.contenido =contenido;
-    this.plataforma = plataforma;
-    this.costo = costo;
+//inicia comparativo
+function startComparative(){
+    const costoTotalSuscripciones = findselection(seleccionUsuario, baseDatosPrincipal);    
 }
 
-const encontrarSeleccion = function( arrayPlataforma, usuario) {
-    //array para guardar los booleans de cada iteraccion y encontrar la posicion de plataforma buscada
-    let arrayDeComprobacion = [];
-    for (let i = 0; i < arrayPlataforma.length; i++) {        
-        let arrayTemporal = arrayPlataforma[i].some(function(contenido){
-            return usuario === contenido;
-        })            
-        arrayDeComprobacion.push(arrayTemporal);
-    }
-    //del array de booleans, traer posicion con valor true.
-    return arrayDeComprobacion.indexOf(true)
-}
-
-const traerCatalogo =  (plataforma) => plataforma.contenido;
-const informacionPlataforma = (bd, index) => bd[index].nombre;
-const plataformaCosto = (bd, index) => bd[index].costo;
-
-//Manipulacion HTML
-//conexion con HTML
-//changeText();
-
-//ejecucion:
-let totalcontenido = 4;
-for (i = 0; i  < totalcontenido; i++)    {
-    let seleccionUsuarioIndividual = prompt("Ingresa una tipo de contenido: ");
-
-    let buscarEnCatalogo = baseDatosPrincipal.map(traerCatalogo);
-
-    let posicionIndexEncontrada = encontrarSeleccion(buscarEnCatalogo, seleccionUsuarioIndividual);
-    
-    let plataformaSeleccionada = informacionPlataforma(baseDatosPrincipal, posicionIndexEncontrada);
-    let plataformaSeleccionadaCosto = plataformaCosto(baseDatosPrincipal, posicionIndexEncontrada);
-
-    let objSeleccionUsuario = new crearObjetoCostosPlataforma(plataformaSeleccionada, plataformaSeleccionadaCosto, seleccionUsuarioIndividual)
-    seleccionUsuarioCompleta.push(objSeleccionUsuario);
-    
-
-    console.log("En suscripcion pagarias mensualmente: $" + seleccionUsuarioCompleta[0].costo + 
-" como parte de la plataforma " + seleccionUsuarioCompleta[0].plataforma.toUpperCase() )
-}
-console.log(seleccionUsuarioCompleta)
-//comparar. en la 
+buttonComparative.addEventListener("click", startComparative);
