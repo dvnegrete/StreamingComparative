@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Challenge</title>
+    <title>Comparador de Streaming</title>
 </head>
 <body>
-    <h1>Comparador de Plataformas Streaming vs Renta individual</h1>
+    <header class="header">
+        <h2>Bienvenido al comparador de costos en Plataformas Streaming</h2>
+        <p>En base al contenido de tu interés, podras saber que suscripciones tendrias que adquirir y el costo mensual total de esas suscripciones.</p>
+        <p>Los costos de las suscripciones (por el momento) estan expresados en pesos mexicanos.</p>
+    </header>    
     <section class="catalogo">
-        <h2>Seleciona las peliculas o series de deseas comparar</h2>
+        <h3>Seleciona  el contenido que te interesa ver:</h3>
         <button class="catalogo--button" type="button" id="mostrarCatalogo">Mostrar Catalogo</button>
         <form id="imprimirCatalogo"></form>
         <button class="catalogo--button" id="ejecutarComparativo">Comparar</button>
         <ul id="plataformasContenidas"></ul>
+        <div id="result" class="resultDiv"></div>        
     </section>
+    <footer class="footer" id="footer"></footer>
 </body>
 <script src="./suscripciones.js" type="module"></script>
 </html>

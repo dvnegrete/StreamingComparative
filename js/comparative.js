@@ -16,14 +16,43 @@ const plataformaCosto = (bd, index) => bd[index].costo;
 
 class crearObjetoCostosPlataforma {
     constructor(plataforma, costo, contenido) {
-        this.contenido = contenido;
         this.plataforma = plataforma;
         this.costo = costo;
+        this.contenido = contenido;
     }
 }
 
-function eliminarRepeticion(valor, posicion, array) {
-    return posicion === array.indexOf(valor);
+function aplanarArray(obj) {
+    let array = [];
+    for(let i = 0; i < obj.length; i++){
+        const plataforma = obj[i].plataforma;
+        const costo = obj[i].costo;
+        array.push([plataforma,costo]);    
+    }
+    const matriz = array.flat();
+    return matriz;    
+}
+
+function eliminarRepeticion (array) {
+    let arrayFilter = [];    
+    for(let i = 0; i < array.length; i += 2){
+        
+        if (arrayFilter.includes(array[i])) {            
+        } else {
+            arrayFilter.push(array[i], array[i+1]);
+        }
+    }
+    return arrayFilter;
+}
+
+function objetoCostoUsuario(arrayPlano){
+    let array = [];
+    for(let i = 0; i < arrayPlano.length; i += 2){
+       
+        const obj = new crearObjetoCostosPlataforma(arrayPlano[i], arrayPlano[i+1], false);
+        array.push(obj);
+    }
+    return array;
 }
 
 const soloPlataformas = (obj) => obj.plataforma;
@@ -39,28 +68,24 @@ function sumarSuscripciones(obj) {
 //ejecucion:
 export function findselection (arraySelection, bd) {
     let seleccionUsuarioCompleta =  [];
-    let indexPlataformasUsuario = [];  
     for (let i = 0; i < arraySelection.length; i++) {
         const buscarEnCatalogo =  bd.map((plataforma) => plataforma.contenido);    
         const posicionIndexEncontrada = encontrarSeleccion(buscarEnCatalogo, arraySelection[i]);
-        indexPlataformasUsuario.push(posicionIndexEncontrada);
         const plataformaSeleccionada = informacionPlataforma(bd, posicionIndexEncontrada);
         const plataformaSeleccionadaCosto = plataformaCosto(bd, posicionIndexEncontrada);    
-        
         const objSeleccionUsuario = new crearObjetoCostosPlataforma(plataformaSeleccionada, plataformaSeleccionadaCosto, arraySelection[i])
         seleccionUsuarioCompleta.push(objSeleccionUsuario);
     }   
     
-    //no esta funcionado eliminar repeticion
-    const objPlataformasContratadas = seleccionUsuarioCompleta.filter(eliminarRepeticion);
-    const indexClean = indexPlataformasUsuario.filter(eliminarRepeticion);
-    debugger;
-    console.log(indexClean);
-    const arrayPlataformas = objPlataformasContratadas.map(soloPlataformas);
-    //const arrayPlataformaReducido = arrayPlataformas.map(algo);
-    const costoTotalSuscripcionUsuario = sumarSuscripciones(objPlataformasContratadas);
+    const arrayPlataformasContratadas = aplanarArray(seleccionUsuarioCompleta);
+    const arrayPlatataformaYcosto = eliminarRepeticion(arrayPlataformasContratadas);    
+    const objPlataformaCosto = objetoCostoUsuario(arrayPlatataformaYcosto);    
+    const arrayPlataformas = objPlataformaCosto.map(soloPlataformas);    
+    const costoTotalSuscripcionUsuario = sumarSuscripciones(objPlataformaCosto);
     
     console.log("En suscripcion pagarias mensualmente: $" + costoTotalSuscripcionUsuario);
     console.log(arrayPlataformas);
-    return costoTotalSuscripcionUsuario;
+    let objetoResultado = [];
+    objetoResultado.push(costoTotalSuscripcionUsuario, arrayPlataformas);
+    return objetoResultado;
 }
