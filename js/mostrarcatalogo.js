@@ -65,12 +65,21 @@ export function availablePlataform(arrayPlataform){
     nodoPlataformas.append(...containerPlataform);
 
     const title = document.createElement("h3");
-    title.textContent = "Plataformas disponibles en el comparativo de este sitio"
+    title.textContent = "Plataformas disponibles actualmente en el comparador de este sitio:"
     nodoPlataformas.insertAdjacentElement("beforebegin", title);
 }
 
 //funcion para mostrar el comparativo despues de que el usuario seleciono los contenidos que le interesan
 export function showResult(array){
+  
+  let countPreviousResult = nodoResultado.childElementCount;  
+  if (countPreviousResult > 1) {
+    const nodeListPrevious = nodoResultado.childNodes;   
+    for (let i = countPreviousResult; i > 0; i--){
+      nodoResultado.removeChild(nodeListPrevious[i-1]);
+    }
+  }
+  
   let container = [];
   
   const labelCost = document.createElement("p");
@@ -100,6 +109,7 @@ export function showResult(array){
       spanPlataformas.textContent = `y ${arrayPlataformas[i]}`;
     }
     container.push(spanPlataformas);
-  }  
-  nodoResultado.append(...container);  
+  }
+  
+  nodoResultado.append(...container);
 }

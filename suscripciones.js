@@ -15,7 +15,7 @@ const todasplataformas = (bd) => bd.nombre;
 const plataformasDisponibles = baseDatosPrincipal.map(todasplataformas);
 
 //para mostrar en HTML. COMPLETAR CATALOGO sirve?
-//const completarCatalogo = (element) => catalogoCompleto.push(element);
+
 const generarCatalogoCompleto = function () { 
     const aplanarArray = buscarEnCatalogo();    
     return aplanarArray.reduce(()=> aplanarArray.flat()        
