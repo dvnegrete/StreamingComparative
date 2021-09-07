@@ -1,0 +1,89 @@
+:root {
+    --color1 : #26272b;
+    --color2: #9faace;
+    --color3: #727787;
+    --color4: #3d1e23;
+    --color5: #6e4a4f;
+
+    --gradient1 : #26272b;
+    --gradient2: #2e4e60;
+    --gradient3: #077d88;
+    --gradient4: #29ac93;
+    --gradient5: #88d783;
+    --gradient6: #f9f871;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: var(--color1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    background-color: var(--color1);
+    color: var(--gradient6);
+    font-size: 1.8rem;
+    min-height: 15rem;
+    max-width: 840px;
+}
+
+.catalogo {
+    color: var(--gradient3);
+    background-color: var(--color1);
+    font-size: 2rem;
+    max-width: 1024px;
+    vertical-align: center;
+    text-align: center;
+    
+}
+
+.catalogo--button {
+    padding: 1rem;
+    margin: 2rem;
+    background-color: var(--color3);
+    color: #000000;
+    border-radius: 10px;
+    border: solid #000000 1px;
+    
+}
+
+.catalogo--form {
+    max-width: 900px;
+    color: var(--color5);  
+}
+
+.catalogo--form > input {
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    height: 17px;
+    width: 17px;
+}
+
+.catalogo--form > label {
+    margin-right: 4rem;
+    margin-top: 1rem;
+}
+
+.resultDiv {
+    
+    background-color: var(--gradient2);
+    color: var(--gradient5);
+    max-width: 600px;
+}
+
+.resultDiv--plataformas {
+    color: var(--color3);
+    font-size: 2.2rem;
+    font-weight: 300;
+}

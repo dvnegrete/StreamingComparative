@@ -4,8 +4,8 @@ export function selectionInputs(catalogo){
 const userSelection = [];
 
     for (let i = 0; i < catalogo.length; i++) {
-        let idSelection = idCamelCase(catalogo[i]);        
-        let inputUser = document.getElementById(`${idSelection}`);
+        const idSelection = idCamelCase(catalogo[i]);        
+        const inputUser = document.getElementById(`${idSelection}`);
         if (inputUser.checked) {
             userSelection.push(catalogo[i]);
         }

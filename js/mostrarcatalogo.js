@@ -1,3 +1,26 @@
+//nodo de montaje en HTML
+const nodoMontaje = document.getElementById("imprimirCatalogo");
+const nodoPlataformas = document.getElementById("plataformasContenidas");
+const nodoResultado = document.getElementById("result");
+const allInputs = nodoMontaje.childNodes;
+
+//funciones para seleccionar y desmarcar todos los inputs
+const selectAll = function () {  
+  for(let i = 0; i < allInputs.length; i++) {
+      if (allInputs[i].type == "checkbox") {
+          allInputs[i].checked = 1;
+      }
+  }
+}
+const cleanSelect = function () {  
+  for(let i = 0; i < allInputs.length; i++) {
+      if (allInputs[i].type == "checkbox") {
+          allInputs[i].checked = 0;
+      }
+  }
+}
+
+//funciones que usa idCamelCase
 function quitarEspacios (arrayWithLether) {    
     const arrayNoSpaces = [];
     for(let i = 0; i < arrayWithLether.length; i++) {
@@ -14,6 +37,7 @@ function quitarEspacios (arrayWithLether) {
     return arrayNoSpaces;
 }
 
+//funcion que usa mostrar Plataformas y funcion selectionInputs
 export function idCamelCase (string) {
   const stringCompleto = Array.from(string);  
   //arrayString contiene el nombre de la pelicula en un array por cada letra
@@ -22,25 +46,34 @@ export function idCamelCase (string) {
   return stringCamel;
 }
 
-//nodo de montaje en HTML
-const nodoMontaje = document.getElementById("imprimirCatalogo");
-const nodoPlataformas = document.getElementById("plataformasContenidas");
-const nodoResultado = document.getElementById("result");
-
-
 //funcion para mostrar catalogo en API
-export function catalogoChecklist (catalogoCompleto)
-{   let containerHTML = [];
+export function catalogoChecklist (catalogoCompleto) {
+  //botones para seleccionar todo
+  const buttonSelectAll = document.createElement("button");
+  buttonSelectAll.type = "button";
+  buttonSelectAll.id = "selectAllInputs";
+  buttonSelectAll.className = "catalogo--button";
+  buttonSelectAll.textContent = "Selecionar todo";
+  buttonSelectAll.addEventListener("click", selectAll);
+
+  const buttonCleanSelect = document.createElement("button");
+  buttonCleanSelect.type = "button";
+  buttonCleanSelect.className = "catalogo--button";
+  buttonCleanSelect.id = "cleanSelectInput";
+  buttonCleanSelect.textContent = "Quitar Selección";
+  buttonCleanSelect.addEventListener("click", cleanSelect);
+
+  //const containerButtons = [buttonSelectAll, buttonCleanSelect];
+  let containerHTML = [];
     
     for(let i = 0 ; i < catalogoCompleto.length ; i++)
     {   
-        //crear y asignar label
+        //crear checkbox del contenido disponible en BD
         const labelCheckbox = document.createElement("label");
         //crear ID?   labelCheckbox.htmlFor = `#${catalogoCompleto[i]}`;
-        labelCheckbox.textContent =  catalogoCompleto[i];
-        labelCheckbox.className = "catalogo-checkbox"
+        labelCheckbox.textContent =  catalogoCompleto[i];        
 
-        const inputCheckbox =document.createElement("input");
+        const inputCheckbox = document.createElement("input");
         inputCheckbox.type = "checkbox";
         inputCheckbox.name = `${catalogoCompleto[i]}`;             
         let idCamel = idCamelCase(catalogoCompleto[i]);
@@ -48,10 +81,12 @@ export function catalogoChecklist (catalogoCompleto)
         
         containerHTML.push(inputCheckbox, labelCheckbox);
     }
+    nodoMontaje.insertAdjacentElement("beforebegin", buttonSelectAll);
+    nodoMontaje.insertAdjacentElement("beforebegin", buttonCleanSelect);
     nodoMontaje.append(...containerHTML);
 }
 
-//funcion para mostrar plataformas disponibles para en el sitio
+//mostrar plataformas disponibles para en el sitio
 export function availablePlataform(arrayPlataform){    
     const containerPlataform = [];
     const plataformAvailable = arrayPlataform.length - 1;
@@ -69,9 +104,10 @@ export function availablePlataform(arrayPlataform){
     nodoPlataformas.insertAdjacentElement("beforebegin", title);
 }
 
-//funcion para mostrar el comparativo despues de que el usuario seleciono los contenidos que le interesan
+//resultado la selección de contenidos del usuario
 export function showResult(array){
   
+  //para consultas previas
   let countPreviousResult = nodoResultado.childElementCount;  
   if (countPreviousResult > 1) {
     const nodeListPrevious = nodoResultado.childNodes;   
@@ -82,18 +118,25 @@ export function showResult(array){
   
   let container = [];
   
-  const labelCost = document.createElement("p");
-  labelCost.textContent = `El costo mensual en suscripción para tu selección de contenidos es de: $${array[0].toFixed(2)} MXN`;
+  const labelCostSpan = document.createElement("span");
+  labelCostSpan.textContent = `El costo mensual en suscripción para tu selección de contenidos es de: `;
+
+  const costo = document.createElement("span");
+  costo.textContent = `$${array[0].toFixed(2)} MXN`
+  costo.className = "resultDiv--plataformas";
+
+  const lineBreak = document.createElement("br");
 
   const title = document.createElement("span");
   title.textContent = "Disponible en ";
   
-  container.push(labelCost,title);
+  container.push(labelCostSpan, costo, lineBreak, title);
 
   const arrayPlataformas = array[1];
 
   for(let i = 0; i < arrayPlataformas.length; i++) {    
     const spanPlataformas =  document.createElement("span");
+    spanPlataformas.className = "resultDiv--plataformas";
     spanPlataformas.textContent = `${arrayPlataformas[i]}, `;
     
     if (arrayPlataformas.length === 1) {
@@ -107,7 +150,7 @@ export function showResult(array){
     else if (i === arrayPlataformas.length - 1) {
       //cuando restan 2 plataformas dentro del ciclo
       spanPlataformas.textContent = `y ${arrayPlataformas[i]}`;
-    }
+    }    
     container.push(spanPlataformas);
   }
   

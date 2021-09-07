@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparador de Streaming</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <header class="header">
-        <h2>Bienvenido al comparador de costos en Plataformas Streaming</h2>
+        <h1>Bienvenido al comparador de costos en Plataformas Streaming</h1>
         <p>En base al contenido de tu interés, podras saber que suscripciones tendrias que adquirir y el costo mensual total de esas suscripciones.</p>
         <p>Los costos de las suscripciones (por el momento) estan expresados en pesos mexicanos.</p>
     </header>    
     <section class="catalogo">
-        <h3>Seleciona  el contenido que te interesa ver:</h3>
+        <h3>Seleciona el contenido que te interesa</h3>
         <button class="catalogo--button" type="button" id="mostrarCatalogo">Mostrar Catalogo</button>
-        <form id="imprimirCatalogo"></form>
+        <form id="imprimirCatalogo" class="catalogo--form"></form>
         <button class="catalogo--button" id="ejecutarComparativo">Comparar</button>
         <ul id="plataformasContenidas"></ul>
         <div id="result" class="resultDiv"></div>        
