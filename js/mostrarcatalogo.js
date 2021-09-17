@@ -40,9 +40,9 @@ export function catalogoChecklist (catalogoCompleto) {
   buttonSelectAll.className = "catalogo--button";
   buttonSelectAll.textContent = "Selecionar todo";
   buttonSelectAll.addEventListener("click", function (event) {
-    for(let i = 0; i < allInputs.length; i++) {
+    for(let i = 0; i < allInputs.length; i++) {      
       const onlyInputs = allInputs[i].childNodes;
-      onlyInputs[0].checked = 1;
+      onlyInputs[1].checked = 1;
     }
     event.stopPropagation();
   });  
@@ -55,7 +55,7 @@ export function catalogoChecklist (catalogoCompleto) {
   buttonCleanSelect.addEventListener("click", function (event) {
     for(let i = 0; i < allInputs.length; i++) {
       const onlyInputs = allInputs[i].childNodes;
-      onlyInputs[0].checked = 0;
+      onlyInputs[1].checked = 0;
     }
     event.stopPropagation();
   });
@@ -69,13 +69,10 @@ export function catalogoChecklist (catalogoCompleto) {
   let containerHTML = [];
 
     for(let i = 0 ; i < catalogoCompleto.length ; i++)
-    {
-      const divInput = document.createElement("div");
-      divInput.className = "catalogo--form--div";
-
-      //crear checkbox del contenido disponible en BD
+    { //crear checkbox del contenido disponible en BD
       const labelCheckbox = document.createElement("label");      
-      labelCheckbox.textContent =  catalogoCompleto[i];        
+      labelCheckbox.textContent =  catalogoCompleto[i];
+      labelCheckbox.className = "catalogo--form--label";
 
       const inputCheckbox = document.createElement("input");
       inputCheckbox.type = "checkbox";
@@ -83,12 +80,12 @@ export function catalogoChecklist (catalogoCompleto) {
       inputCheckbox.className = "form--checkbox";
       let idCamel = idCamelCase(catalogoCompleto[i]);
       inputCheckbox.id = idCamel;
-      
-      divInput.append(inputCheckbox, labelCheckbox);
-      containerHTML.push(divInput);
+
+      labelCheckbox.append(inputCheckbox);
+      containerHTML.push(labelCheckbox);
     }   
-    nodoMontaje.insertAdjacentElement("afterend", divButtons);   
-    nodoMontaje.append(...containerHTML);
+    
+    nodoMontaje.append(...containerHTML, divButtons);
 }
 
 //mostrar plataformas disponibles para en el sitio

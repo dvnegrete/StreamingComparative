@@ -75,13 +75,13 @@ body {
     justify-content: space-evenly;
 }
 
-.catalogo--form--div {
+.catalogo--form--label {
     padding: 1.5rem;
-    min-width: 17rem;
+    min-width: 17rem;    
 }
 
 .form--checkbox {
-    margin-right: 1rem;
+    margin-left: 1rem;
     width:25px;
     height:25px;    
     border-radius: 20px;
