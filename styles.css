@@ -1,16 +1,12 @@
 :root {
-    --color1 : #26272b;
-    --color2: #9faace;
-    --color3: #727787;
-    --color4: #3d1e23;
-    --color5: #6e4a4f;
+    --color0 : #000000;
+    --color1 : #6155b3;
+    --color5: #0075ff;
+    --color6: #000b5a;
 
-    --gradient1 : #26272b;
-    --gradient2: #2e4e60;
-    --gradient3: #077d88;
-    --gradient4: #29ac93;
-    --gradient5: #88d783;
-    --gradient6: #f9f871;
+    --gradient1 : #5a959e;
+    --gradient2: #00c2a1;
+    --gradient3: #008b6d;    
 }
 
 * {
@@ -24,23 +20,23 @@ html {
 }
 
 body {
-    background-color: var(--color1);
+    background-color: var(--color0);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .header {
-    background-color: var(--color1);
-    color: var(--gradient6);
+    background-color: var(--color0);
+    color: var(--color1);
     font-size: 1.8rem;
     min-height: 15rem;
     max-width: 840px;
+    text-align: center;
 }
 
 .header h1 {
-    margin: 1rem 2rem;
-    text-align: center;
+    margin: 1rem 2rem;    
 }
 
 .header p {
@@ -48,8 +44,8 @@ body {
 }
 
 .catalogo {
-    color: var(--gradient3);
-    background-color: var(--color1);
+    color: var(--color1);
+    background-color: var(--color0);
     font-size: 2rem;
     max-width: 1024px;
     display: flex;
@@ -64,16 +60,16 @@ body {
 .catalogo--button {
     padding: 1rem;
     margin: 2rem;
-    background-color: var(--color3);
-    color: #000000;
+    background-color: var(--color5);
+    color: var(--color6);
     border-radius: 10px;
-    border: solid #000000 1px;
-    
+    border: solid var(--color6) 1px;
+    font-size: 2rem;    
 }
 
 .catalogo--form {
     max-width: 900px;
-    color: var(--color5);
+    color: var(--color1);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -84,10 +80,11 @@ body {
     min-width: 17rem;
 }
 
-.catalogo--form--div > input {
+.form--checkbox {
     margin-right: 1rem;
-    background: silver;    
-    font-size: 1.2rem;
+    width:25px;
+    height:25px;    
+    border-radius: 20px;
 }
 
 .catalogo__plataformas {
@@ -96,6 +93,7 @@ body {
     max-width: 600px;
     justify-content: space-between;
     flex-wrap: wrap;
+    color: var(--color1);
 }
 
 .catalogo__plataformas li {
@@ -104,15 +102,16 @@ body {
 
 .resultMostrar {
     padding: 2.5rem 5rem;
-    background-color: var(--gradient2);
-    color: var(--gradient5);
+    background-color: var(--color0);
+    color: var(--gradient3);
     max-width: 600px;
     text-align: center;
+    border: 2px solid var(--gradient3);
     border-radius: 100px;
 }
 
 .resultMostrar--destacar {
-    color: var(--color3);
+    color: var(--gradient2);
     font-size: 2.5rem;
     font-weight: 600;
     padding: 0.5rem;

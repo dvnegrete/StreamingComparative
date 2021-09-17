@@ -1,8 +1,7 @@
 import {idCamelCase} from "./mostrarcatalogo.js";
 
 export function selectionInputs(catalogo){
-const userSelection = [];
-
+const userSelection = []; 
     for (let i = 0; i < catalogo.length; i++) {
         const idSelection = idCamelCase(catalogo[i]);        
         const inputUser = document.getElementById(`${idSelection}`);

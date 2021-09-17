@@ -5,8 +5,7 @@ import {findselection} from "./js/comparative.js";
 
 const buttonShow = document.getElementById("mostrarCatalogo");
 const form = document.getElementById("imprimirCatalogo");
-const  buttonComparative = document.getElementById("ejecutarComparativo");
-buttonComparative.style = "display: none";
+
 let seleccionUsuario = [];
 
 const traerContenido =  (plataforma) => plataforma.contenido;
@@ -23,26 +22,19 @@ const generarCatalogoCompleto = function () {
 }
 const catalogoCompleto = generarCatalogoCompleto();
 
-
 function accionButton () {
-    console.log("escuchando boton comparar");
-    catalogoChecklist(catalogoCompleto);
-    availablePlataform(plataformasDisponibles);
-    buttonShow.style = "display: none";
-    buttonComparative.style = "display: auto";
+    if (form.childElementCount === 0) {
+        //crear catalago y mostrar
+        catalogoChecklist(catalogoCompleto);
+        availablePlataform(plataformasDisponibles);
+        buttonShow.textContent = "COMPARAR";        
+    } else {
+        //existe el catalogo, ejecutamos comparador
+        const seleccionUsuario = selectionInputs(catalogoCompleto);
+        const costoPlataformas = findselection(seleccionUsuario, baseDatosPrincipal);    
+        showResult(costoPlataformas);  
+    }
 }
 buttonShow.addEventListener("click", accionButton);
 
-function selectionListen (){
-    seleccionUsuario = selectionInputs(catalogoCompleto);
-}
 
-form.addEventListener("click", selectionListen);
-
-//inicia comparativo
-function startComparative(){
-    const costoPlataformas = findselection(seleccionUsuario, baseDatosPrincipal);    
-    showResult(costoPlataformas);
-}
-
-buttonComparative.addEventListener("click", startComparative);

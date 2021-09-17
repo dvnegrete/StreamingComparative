@@ -4,22 +4,6 @@ const nodoPlataformas = document.getElementById("plataformasContenidas");
 const nodoResultado = document.getElementById("result");
 const allInputs = nodoMontaje.childNodes;
 
-//funciones para seleccionar y desmarcar todos los inputs
-// const selectAll = function () {
-//   for(let i = 0; i < allInputs.length; i++) {
-//     const onlyInputs = allInputs[i].childNodes;
-//     onlyInputs[0].checked = 1;
-//   }
-// }
-
-// const cleanSelect = function (event) {  
-//   for(let i = 0; i < allInputs.length; i++) {
-//     const onlyInputs = allInputs[i].childNodes;
-//     onlyInputs[0].checked = 0;
-//   }
-//   event.stopPropagation();
-// }
-
 //funciones que usa idCamelCase
 function quitarEspacios (arrayWithLether) {    
     const arrayNoSpaces = [];
@@ -48,7 +32,8 @@ export function idCamelCase (string) {
 
 //funcion para mostrar catalogo en API
 export function catalogoChecklist (catalogoCompleto) {
-  //botones para seleccionar todo   
+
+  //boton para seleccionar todo
   const buttonSelectAll = document.createElement("button");
   buttonSelectAll.type = "button";
   buttonSelectAll.id = "selectAllInputs";
@@ -60,8 +45,8 @@ export function catalogoChecklist (catalogoCompleto) {
       onlyInputs[0].checked = 1;
     }
     event.stopPropagation();
-  });
-
+  });  
+  //boton para quitar selección
   const buttonCleanSelect = document.createElement("button");
   buttonCleanSelect.type = "button";
   buttonCleanSelect.className = "catalogo--button";
@@ -79,8 +64,8 @@ export function catalogoChecklist (catalogoCompleto) {
   divButtons.className = "catalogo--BotonesControl";
 
   divButtons.append(buttonSelectAll, buttonCleanSelect);
-
-  //const containerButtons = [buttonSelectAll, buttonCleanSelect];
+  
+  //mostrar catalogo
   let containerHTML = [];
 
     for(let i = 0 ; i < catalogoCompleto.length ; i++)
@@ -89,21 +74,21 @@ export function catalogoChecklist (catalogoCompleto) {
       divInput.className = "catalogo--form--div";
 
       //crear checkbox del contenido disponible en BD
-      const labelCheckbox = document.createElement("label");
-      //crear ID?   labelCheckbox.htmlFor = `#${catalogoCompleto[i]}`;
+      const labelCheckbox = document.createElement("label");      
       labelCheckbox.textContent =  catalogoCompleto[i];        
 
       const inputCheckbox = document.createElement("input");
       inputCheckbox.type = "checkbox";
-      inputCheckbox.name = `${catalogoCompleto[i]}`;             
+      inputCheckbox.name = `${catalogoCompleto[i]}`;
+      inputCheckbox.className = "form--checkbox";
       let idCamel = idCamelCase(catalogoCompleto[i]);
       inputCheckbox.id = idCamel;
       
       divInput.append(inputCheckbox, labelCheckbox);
       containerHTML.push(divInput);
-    }
-    //nodoMontaje.insertAdjacentElement("beforebegin", divButtons);    
-    nodoMontaje.append(...containerHTML, divButtons);
+    }   
+    nodoMontaje.insertAdjacentElement("afterend", divButtons);   
+    nodoMontaje.append(...containerHTML);
 }
 
 //mostrar plataformas disponibles para en el sitio
@@ -120,10 +105,9 @@ export function availablePlataform(arrayPlataform){
     nodoPlataformas.append(...containerPlataform);
 
     const title = document.createElement("h3");
-    title.textContent = "Plataformas disponibles actualmente en el comparador de este sitio:"
+    title.textContent = "Plataformas disponibles en este comparador: "
     nodoPlataformas.insertAdjacentElement("beforebegin", title);
 }
-
 
 
 //resultado la selección de contenidos del usuario
@@ -151,7 +135,7 @@ export function showResult(array){
   const lineBreak2 = document.createElement("br");
 
   const title = document.createElement("span");
-  title.textContent = "Disponible en ";
+  title.textContent = "Encuentralo en ";
   
   container.push(labelCostSpan, costo, lineBreak, lineBreak2, title);
 
