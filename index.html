@@ -7,19 +7,25 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <header class="header">
-        <h1>Comparador de costos en Plataformas Streaming año 2021</h1>
-        <p>En base al contenido de tu interés, podrás saber que suscripciones tendrías que adquirir y el costo mensual total de esas suscripciones.</p>
-        <p>El costo de las suscripciones esta expresado en pesos mexicanos.</p>
-    </header>    
-    <section class="catalogo">
-        <button class="catalogo--button" type="button" id="mostrarCatalogo">MOSTRAR CATALOGO</button>        
-        <div id="result"></div>        
-        <h3>Seleciona el contenido que te interesa</h3>        
-        <form id="imprimirCatalogo" class="catalogo--form"></form>        
-        <ul id="plataformasContenidas" class="catalogo__plataformas"></ul>                
-    </section>
-    <footer class="footer" id="footer"></footer>
+    <div class="container__header">
+        <header class="header">
+            <h1>Comparador de costos en Plataformas Streaming año 2021</h1>
+            <p>En base al contenido de tu interés, podrás saber que suscripciones tendrías que adquirir y el costo mensual total de esas suscripciones.</p>
+            <p>El costo de las suscripciones esta expresado en pesos mexicanos.</p>
+        </header>    
+    </div>
+    <main class="main">   
+        <section class="catalogo">
+            <button class="catalogo--button" type="button" id="mostrarCatalogo">MOSTRAR CATALOGO</button>        
+            <div id="result"></div>        
+            <h3>Seleciona el contenido que te interesa</h3>        
+            <form id="imprimirCatalogo" class="catalogo--form"></form>        
+            <ul id="plataformasContenidas" class="catalogo__plataformas"></ul>                
+        </section>
+    </main>
+    <footer class="footer" id="footer">
+        <div>Copyright</div>
+    </footer>
 </body>
 <script src="./index.js" type="module"></script>
 </html>

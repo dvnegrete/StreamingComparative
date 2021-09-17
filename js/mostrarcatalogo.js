@@ -85,7 +85,8 @@ export function catalogoChecklist (catalogoCompleto) {
       containerHTML.push(labelCheckbox);
     }   
     
-    nodoMontaje.append(...containerHTML, divButtons);
+    nodoMontaje.append(...containerHTML);
+    nodoMontaje.insertAdjacentElement("afterend", divButtons);
 }
 
 //mostrar plataformas disponibles para en el sitio

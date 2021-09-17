@@ -1,12 +1,10 @@
 :root {
-    --color0 : #000000;
-    --color1 : #6155b3;
-    --color5: #0075ff;
-    --color6: #000b5a;
-
-    --gradient1 : #5a959e;
-    --gradient2: #00c2a1;
-    --gradient3: #008b6d;    
+    --colorprime1: #1b242f;
+    --colorprime2: #0f79af;
+    --colorprime3: #7d838a;
+    --colorprime4: #102e48;
+    --colorprime5: #f0f9fc;
+    --colorprime0: #010203;
 }
 
 * {
@@ -19,18 +17,26 @@ html {
     font-size: 62.5%;
 }
 
-body {
-    background-color: var(--color0);
+body {  
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+    background: var(--colorprime1);
 }
 
-.header {
-    background-color: var(--color0);
-    color: var(--color1);
-    font-size: 1.8rem;
+.container__header {
+    background: linear-gradient(var(--colorprime1), var(--colorprime4));
+    width: 100vw;
     min-height: 15rem;
+    display: flex;
+    justify-content: center;
+}
+
+.header {    
+    color: var(--colorprime5);
+    font-size: 1.8rem;
+    height: auto;
     max-width: 840px;
     text-align: center;
 }
@@ -43,9 +49,16 @@ body {
     padding: 1rem;
 }
 
+.main {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(var(--colorprime4), var(--colorprime1));
+}
+
 .catalogo {
-    color: var(--color1);
-    background-color: var(--color0);
+    color: var(--colorprime2);    
     font-size: 2rem;
     max-width: 1024px;
     display: flex;
@@ -60,19 +73,20 @@ body {
 .catalogo--button {
     padding: 1rem;
     margin: 2rem;
-    background-color: var(--color5);
-    color: var(--color6);
+    background-color: var(--colorprime2);
+    color: var(--colorprime5);
     border-radius: 10px;
-    border: solid var(--color6) 1px;
+    border: solid var(--colorprime4) 1px;
     font-size: 2rem;    
 }
 
 .catalogo--form {
-    max-width: 900px;
-    color: var(--color1);
+    max-width: 900px;    
+    color: var(--colorprime5);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    border-radius: 50px;
 }
 
 .catalogo--form--label {
@@ -82,8 +96,8 @@ body {
 
 .form--checkbox {
     margin-left: 1rem;
-    width:25px;
-    height:25px;    
+    width:15px;
+    height:15px;    
     border-radius: 20px;
 }
 
@@ -93,26 +107,43 @@ body {
     max-width: 600px;
     justify-content: space-between;
     flex-wrap: wrap;
-    color: var(--color1);
+    color: var(--colorprime3);
+    border-left: solid var(--colorprime2) 2px;
+    border-right: solid var(--colorprime2) 2px;
 }
 
 .catalogo__plataformas li {
-    padding: 1rem 3rem;
+    padding: 1rem 3rem;    
 }
 
 .resultMostrar {
     padding: 2.5rem 5rem;
-    background-color: var(--color0);
-    color: var(--gradient3);
+    background: radial-gradient(var(--colorprime1), var(--colorprime4));
+    /* background: linear-gradient(var(--colorprime4), var(--colorprime0)); */
+    color: var(--colorprime2);
     max-width: 600px;
     text-align: center;
-    border: 2px solid var(--gradient3);
-    border-radius: 100px;
+    border-bottom: 5px solid var(--colorprime5);
+    border-top: 3px solid var(--colorprime5);
+    border-radius: 5px;
+    
 }
 
 .resultMostrar--destacar {
-    color: var(--gradient2);
+    color: var(--colorprime5);
     font-size: 2.5rem;
     font-weight: 600;
     padding: 0.5rem;
+}
+
+.footer {
+    min-height: 4rem;
+    width: 100vw;
+    background: var(--colorprime1);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 1.2rem;
+    color: var(--colorprime5);
+    margin-top: auto;
 }
