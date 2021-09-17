@@ -82,9 +82,7 @@ export function findselection (arraySelection, bd) {
     const objPlataformaCosto = objetoCostoUsuario(arrayPlatataformaYcosto);    
     const arrayPlataformas = objPlataformaCosto.map(soloPlataformas);    
     const costoTotalSuscripcionUsuario = sumarSuscripciones(objPlataformaCosto);
-    
-    console.log("En suscripcion pagarias mensualmente: $" + costoTotalSuscripcionUsuario);
-    console.log(arrayPlataformas);
+        
     let objetoResultado = [];
     objetoResultado.push(costoTotalSuscripcionUsuario, arrayPlataformas);
     return objetoResultado;

@@ -5,20 +5,20 @@ const nodoResultado = document.getElementById("result");
 const allInputs = nodoMontaje.childNodes;
 
 //funciones para seleccionar y desmarcar todos los inputs
-const selectAll = function () {  
-  for(let i = 0; i < allInputs.length; i++) {
-      if (allInputs[i].type == "checkbox") {
-          allInputs[i].checked = 1;
-      }
-  }
-}
-const cleanSelect = function () {  
-  for(let i = 0; i < allInputs.length; i++) {
-      if (allInputs[i].type == "checkbox") {
-          allInputs[i].checked = 0;
-      }
-  }
-}
+// const selectAll = function () {
+//   for(let i = 0; i < allInputs.length; i++) {
+//     const onlyInputs = allInputs[i].childNodes;
+//     onlyInputs[0].checked = 1;
+//   }
+// }
+
+// const cleanSelect = function (event) {  
+//   for(let i = 0; i < allInputs.length; i++) {
+//     const onlyInputs = allInputs[i].childNodes;
+//     onlyInputs[0].checked = 0;
+//   }
+//   event.stopPropagation();
+// }
 
 //funciones que usa idCamelCase
 function quitarEspacios (arrayWithLether) {    
@@ -48,42 +48,62 @@ export function idCamelCase (string) {
 
 //funcion para mostrar catalogo en API
 export function catalogoChecklist (catalogoCompleto) {
-  //botones para seleccionar todo
+  //botones para seleccionar todo   
   const buttonSelectAll = document.createElement("button");
   buttonSelectAll.type = "button";
   buttonSelectAll.id = "selectAllInputs";
   buttonSelectAll.className = "catalogo--button";
   buttonSelectAll.textContent = "Selecionar todo";
-  buttonSelectAll.addEventListener("click", selectAll);
+  buttonSelectAll.addEventListener("click", function (event) {
+    for(let i = 0; i < allInputs.length; i++) {
+      const onlyInputs = allInputs[i].childNodes;
+      onlyInputs[0].checked = 1;
+    }
+    event.stopPropagation();
+  });
 
   const buttonCleanSelect = document.createElement("button");
   buttonCleanSelect.type = "button";
   buttonCleanSelect.className = "catalogo--button";
   buttonCleanSelect.id = "cleanSelectInput";
   buttonCleanSelect.textContent = "Quitar Selección";
-  buttonCleanSelect.addEventListener("click", cleanSelect);
+  buttonCleanSelect.addEventListener("click", function (event) {
+    for(let i = 0; i < allInputs.length; i++) {
+      const onlyInputs = allInputs[i].childNodes;
+      onlyInputs[0].checked = 0;
+    }
+    event.stopPropagation();
+  });
+
+  const divButtons = document.createElement("div");
+  divButtons.className = "catalogo--BotonesControl";
+
+  divButtons.append(buttonSelectAll, buttonCleanSelect);
 
   //const containerButtons = [buttonSelectAll, buttonCleanSelect];
   let containerHTML = [];
-    
-    for(let i = 0 ; i < catalogoCompleto.length ; i++)
-    {   
-        //crear checkbox del contenido disponible en BD
-        const labelCheckbox = document.createElement("label");
-        //crear ID?   labelCheckbox.htmlFor = `#${catalogoCompleto[i]}`;
-        labelCheckbox.textContent =  catalogoCompleto[i];        
 
-        const inputCheckbox = document.createElement("input");
-        inputCheckbox.type = "checkbox";
-        inputCheckbox.name = `${catalogoCompleto[i]}`;             
-        let idCamel = idCamelCase(catalogoCompleto[i]);
-        inputCheckbox.id = idCamel;
-        
-        containerHTML.push(inputCheckbox, labelCheckbox);
+    for(let i = 0 ; i < catalogoCompleto.length ; i++)
+    {
+      const divInput = document.createElement("div");
+      divInput.className = "catalogo--form--div";
+
+      //crear checkbox del contenido disponible en BD
+      const labelCheckbox = document.createElement("label");
+      //crear ID?   labelCheckbox.htmlFor = `#${catalogoCompleto[i]}`;
+      labelCheckbox.textContent =  catalogoCompleto[i];        
+
+      const inputCheckbox = document.createElement("input");
+      inputCheckbox.type = "checkbox";
+      inputCheckbox.name = `${catalogoCompleto[i]}`;             
+      let idCamel = idCamelCase(catalogoCompleto[i]);
+      inputCheckbox.id = idCamel;
+      
+      divInput.append(inputCheckbox, labelCheckbox);
+      containerHTML.push(divInput);
     }
-    nodoMontaje.insertAdjacentElement("beforebegin", buttonSelectAll);
-    nodoMontaje.insertAdjacentElement("beforebegin", buttonCleanSelect);
-    nodoMontaje.append(...containerHTML);
+    //nodoMontaje.insertAdjacentElement("beforebegin", divButtons);    
+    nodoMontaje.append(...containerHTML, divButtons);
 }
 
 //mostrar plataformas disponibles para en el sitio
@@ -104,6 +124,8 @@ export function availablePlataform(arrayPlataform){
     nodoPlataformas.insertAdjacentElement("beforebegin", title);
 }
 
+
+
 //resultado la selección de contenidos del usuario
 export function showResult(array){
   
@@ -119,24 +141,25 @@ export function showResult(array){
   let container = [];
   
   const labelCostSpan = document.createElement("span");
-  labelCostSpan.textContent = `El costo mensual en suscripción para tu selección de contenidos es de: `;
+  labelCostSpan.textContent = `La suscripción mensual para tu selección te costaria: `;
 
   const costo = document.createElement("span");
   costo.textContent = `$${array[0].toFixed(2)} MXN`
-  costo.className = "resultDiv--plataformas";
+  costo.className = "resultMostrar--destacar";
 
   const lineBreak = document.createElement("br");
+  const lineBreak2 = document.createElement("br");
 
   const title = document.createElement("span");
   title.textContent = "Disponible en ";
   
-  container.push(labelCostSpan, costo, lineBreak, title);
+  container.push(labelCostSpan, costo, lineBreak, lineBreak2, title);
 
   const arrayPlataformas = array[1];
 
   for(let i = 0; i < arrayPlataformas.length; i++) {    
     const spanPlataformas =  document.createElement("span");
-    spanPlataformas.className = "resultDiv--plataformas";
+    spanPlataformas.className = "resultMostrar--destacar";
     spanPlataformas.textContent = `${arrayPlataformas[i]}, `;
     
     if (arrayPlataformas.length === 1) {
@@ -155,4 +178,5 @@ export function showResult(array){
   }
   
   nodoResultado.append(...container);
+  nodoResultado.className = "resultMostrar";
 }

@@ -25,6 +25,7 @@ const catalogoCompleto = generarCatalogoCompleto();
 
 
 function accionButton () {
+    console.log("escuchando boton comparar");
     catalogoChecklist(catalogoCompleto);
     availablePlataform(plataformasDisponibles);
     buttonShow.style = "display: none";

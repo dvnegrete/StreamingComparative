@@ -38,14 +38,27 @@ body {
     max-width: 840px;
 }
 
+.header h1 {
+    margin: 1rem 2rem;
+    text-align: center;
+}
+
+.header p {
+    padding: 1rem;
+}
+
 .catalogo {
     color: var(--gradient3);
     background-color: var(--color1);
     font-size: 2rem;
     max-width: 1024px;
-    vertical-align: center;
-    text-align: center;
-    
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.catalogo h3 {
+    margin-top: 2rem;
 }
 
 .catalogo--button {
@@ -60,30 +73,47 @@ body {
 
 .catalogo--form {
     max-width: 900px;
-    color: var(--color5);  
+    color: var(--color5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
-.catalogo--form > input {
-    margin-right: 0.5rem;
-    margin-top: 1rem;
-    height: 17px;
-    width: 17px;
+.catalogo--form--div {
+    padding: 1.5rem;
+    min-width: 17rem;
 }
 
-.catalogo--form > label {
-    margin-right: 4rem;
-    margin-top: 1rem;
+.catalogo--form--div > input {
+    margin-right: 1rem;
+    background: silver;    
+    font-size: 1.2rem;
 }
 
-.resultDiv {
-    
+.catalogo__plataformas {
+    list-style: none;
+    display: flex;
+    max-width: 600px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.catalogo__plataformas li {
+    padding: 1rem 3rem;
+}
+
+.resultMostrar {
+    padding: 2.5rem 5rem;
     background-color: var(--gradient2);
     color: var(--gradient5);
     max-width: 600px;
+    text-align: center;
+    border-radius: 100px;
 }
 
-.resultDiv--plataformas {
+.resultMostrar--destacar {
     color: var(--color3);
-    font-size: 2.2rem;
-    font-weight: 300;
+    font-size: 2.5rem;
+    font-weight: 600;
+    padding: 0.5rem;
 }
